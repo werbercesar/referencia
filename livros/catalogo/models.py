@@ -69,8 +69,3 @@ class Livro(models.Model):
 
     def referencia(self):
         return self.autoria() + self.titulacao() + self.imprenta()
-
-
-
-
-

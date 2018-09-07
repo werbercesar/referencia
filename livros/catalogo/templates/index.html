@@ -1,5 +1,6 @@
 {% extends "template_basico.html" %}
 
+<!--
 {% block badge_autor %}
     {{ num_autores }}
 {% endblock %}
@@ -7,8 +8,12 @@
 {% block badge_livro %}
     {{ num_livros }}
 {% endblock %}
+-->
 
 {% block content %}
-    <h1>Referências</h1>
+    {% for livro in lista_livro %}
+        <i><b>Título:</i></b> {{ livro.titulo }}<br>
+        <i><b>Autoria:</i></b> {{ livro.autor.chamada }}<br>
+    {% endfor %}
 {% endblock %}
 
