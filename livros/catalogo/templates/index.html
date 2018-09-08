@@ -12,8 +12,18 @@
 
 {% block content %}
     {% for livro in lista_livro %}
-        <i><b>Título:</i></b> {{ livro.titulo }}<br>
-        <i><b>Autoria:</i></b> {{ livro.autor.chamada }}<br>
-    {% endfor %}
+<p> {{ lista_livro }} </p>
+        <p><b>Título:</b></p> {{ livro.titulo }}<br>
+        <p><b>Autoria:</b></p> {{ livro.autoria }}<br>
+        <p><b>Referência:</b></p> {{ livro.referencia }} <br>
+            <!--{% for a in livro.autor.all %}-->
+
+                    <!--{{ a.chamada }} <br>-->
+            <!--{% endfor %}-->
+<!--{{ livro.autor.chamada }}<br>-->
+
+
+
+    <!--{% endfor %}-->
 {% endblock %}
 
