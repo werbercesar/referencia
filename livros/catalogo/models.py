@@ -35,16 +35,27 @@ class Autor(models.Model):
         return self.sobrenome.upper() + ', ' + self.nome + pseudo
 
 
-class Livro(models.Model):
+class Fonte(models.Model):
     autor = models.ManyToManyField(Autor, verbose_name="Autoria",
         help_text="Indique o autor ou autores da obra")
 
     titulo = models.CharField(max_length=200, verbose_name="Título",
-        help_text="Titulo do livro (ex.: 'Confissões')")
+        help_text="Titulo da fonte (ex.: 'Confissões')")
 
     subtitulo = models.CharField(max_length=200, verbose_name="Subtítulo", default='', null=True, blank=True,
-        help_text="Subtitulo do livro")
+        help_text="Algumas obras apresentam subtítulos bastante elucidativos de seu conteúdo")
 
+    resumo = models.TextField(verbose_name="Resumo", null=True, blank=True,
+        help_text="Uma breve descrição do conteúdo da obra.")
+
+    def autoria(self):
+        n_tmp = ''
+        for a in self.autor.all():
+            n_tmp += a.chamada() + '; '
+        return n_tmp.strip()[:-1]
+
+
+class Livro(Fonte):
     edicao = models.CharField(max_length=10, verbose_name="Edição", null=True, blank=True,
         help_text="Número da edição (utilizar número arábico e preencher mesmo que seja a primeira edição)")
 
@@ -66,16 +77,7 @@ class Livro(models.Model):
     volume = models.CharField(max_length=50, verbose_name="Volume", null=True, blank=True,
         help_text="Indique o número do volume, se houver mais de um (ex.: 'Volume 9')")
 
-    sumario = models.TextField(max_length=1500, verbose_name="Sumário", null=True, blank=True,
-        help_text="Breve descrição do conteúdo da obra (até 1500 caracteres).")
-
     def __str__(self): return self.titulo
-
-    def autoria(self):
-        n_tmp = ''
-        for a in self.autor.all():
-            n_tmp += a.chamada() + '; '
-        return n_tmp.strip()[:-1]
 
     def titulacao(self):
         str_titulo = self.titulo
