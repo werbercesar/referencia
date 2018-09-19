@@ -1,88 +1,58 @@
 from django.db import models
 
 
-class Autor(models.Model):
-    nome = models.CharField(max_length=100, verbose_name="Nome",
-        help_text="O primeiro nome do autor. (ex.: 'Aurelius' em 'Aurelius Augustinus')")
-
-    sobrenome = models.CharField(max_length=100, default='', verbose_name="Sobrenome",
-        help_text="O sobrenome ou nome familiar do autor. (ex.: 'Augustinus' em 'Aurelius Augustinus')")
-
-    pseudonimo = models.CharField(max_length=100, default='', verbose_name="Pseudônimo", null=True, blank=True,
-        help_text="Pseudonimo ou nome universal do autor. (ex.: 'Santo Agostinho')")
-
-    nascimento = models.CharField(max_length=50, verbose_name="Nascimento", null=True, blank=True,
-        help_text="Data de nascimento ou aproximações. (ex.: '354 d.C.')")
-
-    obito = models.CharField(max_length=50, verbose_name="Morte", null=True, blank=True,
-        help_text="Data da morte ou aproximações. (ex.: '28/08/430')")
-
-    local_nascimento = models.CharField(max_length=50, null=True, blank=True, verbose_name="Local de nascimento",
-        help_text="Local de nascimento.Sempre atualizar. (ex.: Província romana de Hipona, atual Annaba na Argélia)")
-
-    lingua_original = models.CharField(max_length=50, null=True, blank=True, verbose_name="Língua utilizadas",
-        help_text="Línguas utilizadas pelo autor nas suas principais obras. (ex.: 'Latim')")
-
-    magni_opera = models.CharField(max_length=200, verbose_name="Magni opera", null=True, blank=True,
-        help_text="Lista das maiores obras do autor (ex.: 'A cidade de Deus, Confissões')")
+class Pessoa(models.Model):
+    nome       = models.CharField(max_length=100, verbose_name="Nome")
+    sobrenome  = models.CharField(max_length=100, verbose_name="Sobrenome")
+    pseudonimo = models.CharField(max_length=100, verbose_name="Pseudônimo", null=True, blank=True)
+    nascimento = models.CharField(max_length=50 , verbose_name="Nascimento", null=True, blank=True)
+    obito      = models.CharField(max_length=50 , verbose_name="Morte"     , null=True, blank=True)
+    local_nascimento = models.CharField(max_length=50, verbose_name="Local de nascimento", null=True, blank=True)
+    lingua_original  = models.CharField(max_length=50, verbose_name="Línguas utilizadas" , null=True, blank=True)
 
     def __str__(self): return self.nome
 
     def chamada(self):
+        # TODO Isso é assim mesmo? Talvez toda a hierarquia Pessoa < Autor ... etc deva ser revista: K.I.S.S
         pseudo = str()
-        if self.pseudonimo:
-            pseudo = ' (' + self.pseudonimo + ')'
+        if self.pseudonimo: pseudo = ' (' + self.pseudonimo + ')'
         return self.sobrenome.upper() + ', ' + self.nome + pseudo
 
 
+class Autor(Pessoa):
+    magni_opera = models.CharField(max_length=200, verbose_name="Magni opera", null=True, blank=True)
+
+class Organizador(Pessoa):
+    def chamada(self):
+        nome_chamada = super(Pessoa, self).chamada()
+        return  nome_chamada + '(org.)'
+
 class Fonte(models.Model):
-    autor = models.ManyToManyField(Autor, verbose_name="Autoria",
-        help_text="Indique o autor ou autores da obra")
-
-    titulo = models.CharField(max_length=200, verbose_name="Título",
-        help_text="Titulo da fonte (ex.: 'Confissões')")
-
-    subtitulo = models.CharField(max_length=200, verbose_name="Subtítulo", default='', null=True, blank=True,
-        help_text="Algumas obras apresentam subtítulos bastante elucidativos de seu conteúdo")
-
-    resumo = models.TextField(verbose_name="Resumo", null=True, blank=True,
-        help_text="Uma breve descrição do conteúdo da obra.")
+    autor     = models.ManyToManyField(Autor   , verbose_name="Autoria")
+    titulo    = models.CharField(max_length=200, verbose_name="Título")
+    subtitulo = models.CharField(max_length=200, verbose_name="Subtítulo", null=True, blank=True)
+    resumo    = models.TextField(verbose_name="Resumo"                   , null=True, blank=True)
 
     def autoria(self):
         n_tmp = ''
-        for a in self.autor.all():
-            n_tmp += a.chamada() + '; '
+        for a in self.autor.all(): n_tmp += a.chamada() + '; '
         return n_tmp.strip()[:-1]
 
 
 class Livro(Fonte):
-    edicao = models.CharField(max_length=10, verbose_name="Edição", null=True, blank=True,
-        help_text="Número da edição (utilizar número arábico e preencher mesmo que seja a primeira edição)")
-
-    local = models.CharField(max_length=50, verbose_name="Local da publicação", null=True, blank=True,
-        help_text="Informe o local da publicação. (ex.: 'Rio de Janeiro', 'Patos-PB')")
-
-    editora = models.CharField(max_length=50, verbose_name="Editora", null=True, blank=True,
-        help_text="Informe o nome da editora. (ex.: 'Cultrix')")
-
-    ano = models.CharField(max_length=50, verbose_name="Ano da publicação", null=True, blank=True,
-        help_text="O ano da publicação, quando disponível (ex.: '1973', '198?' '1600?')")
-
-    paginas = models.CharField(max_length=5, verbose_name="Número de páginas", null=True, blank=True,
-        help_text="O número de páginas do livros. (consulte sempre a imprenta)")
-
-    colecao = models.CharField(max_length=50, verbose_name="Coleção", null=True, blank=True,
-        help_text="Indique o noem da coleção, se houver. (ex.: 'Primeiros passos', 'O que é?')")
-
-    volume = models.CharField(max_length=50, verbose_name="Volume", null=True, blank=True,
-        help_text="Indique o número do volume, se houver mais de um (ex.: 'Volume 9')")
+    edicao  = models.CharField(max_length=10, verbose_name="Edição"             , null=True, blank=True)
+    local   = models.CharField(max_length=50, verbose_name="Local da publicação", null=True, blank=True)
+    editora = models.CharField(max_length=50, verbose_name="Editora"            , null=True, blank=True)
+    ano     = models.CharField(max_length=50, verbose_name="Ano da publicação"  , null=True, blank=True)
+    paginas = models.CharField(max_length=5 , verbose_name="Número de páginas"  , null=True, blank=True)
+    colecao = models.CharField(max_length=50, verbose_name="Coleção"            , null=True, blank=True)
+    volume  = models.CharField(max_length=50, verbose_name="Volume"             , null=True, blank=True)
 
     def __str__(self): return self.titulo
 
     def titulacao(self):
         str_titulo = self.titulo
-        if self.subtitulo:
-            str_titulo += ': ' + self.subtitulo
+        if self.subtitulo: str_titulo += ': ' + self.subtitulo
         return str_titulo
 
     def imprenta(self):
