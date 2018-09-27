@@ -7,7 +7,7 @@ from . import models
 def index(request):
 
     num_livros = models.Livro.objects.all().count()
-    num_autores = models.Autor.objects.all().count()
+    num_autores = models.Fonte.objects.all().count()
 
     lista_livros = models.Livro.objects.all()
 
