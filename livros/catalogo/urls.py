@@ -4,6 +4,6 @@ from catalogo import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # path('livros/', views.LivroListView.as_view(), name='livros'),
+    path('fontes/', views.ListaFontes.as_view(), name='fontes'),
     # path('livro/<int:pk>', views.LivroDetalheView.as_view(), name='detalhe_livro'),
 ]

@@ -33,36 +33,16 @@ class Fonte(models.Model):
         return n_tmp.strip()[:-1]
 
 
-class NomePapel(models.Model):
+class Papel(models.Model):
     nome = models.CharField(max_length=25, verbose_name='Nome do papel')
     abreviatura = models.CharField(max_length=6, verbose_name='Abreviatura')
     autoridade_fonte = models.BooleanField(verbose_name="Este papel é de autoridade da fonte?", default=False)
 
 class PapelPessoa(models.Model):
-    AUTOR       = 'AUT'
-    TRADUTOR    = 'TRA'
-    ORGANIZADOR = 'ORG'
-    COORDENADOR = 'COO'
-    EDITOR      = 'EDI'
-    REVISOR     = 'REV'
-    PREFACIADOR = 'PRE'
-    COMPILADOR  = 'COM'
-    ILUSTRADOR  = 'ILU'
-    NOME_PAPEL  = (
-        (AUTOR, 'Autor'),
-        (TRADUTOR, 'Tradutor'),
-        (ORGANIZADOR, 'Organizador'),
-        (COORDENADOR, 'Coordenador'),
-        (EDITOR, 'Editor'),
-        (REVISOR, 'Revisor'),
-        (PREFACIADOR, 'Prefaciador'),
-        (COMPILADOR, 'Compilador'),
-        (ILUSTRADOR, 'Ilustrador'),
-    )
+    papel  = models.ForeignKey(Papel, on_delete=models.PROTECT)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     fonte  = models.ForeignKey(Fonte , on_delete=models.CASCADE)
     ordem  = models.PositiveSmallIntegerField(verbose_name="Ordem de citação")
-    papel  = models.CharField(max_length=3, verbose_name='Papel', choices=NOME_PAPEL, default=AUTOR)
 
 class Livro(Fonte):
     edicao = models.CharField(max_length=10, verbose_name="Edição", null=True, blank=True)

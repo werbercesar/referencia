@@ -1,29 +1,12 @@
 {% extends "template_basico.html" %}
 
-<!--
-{% block badge_autor %}
-    {{ num_autores }}
-{% endblock %}
-
-{% block badge_livro %}
-    {{ num_livros }}
-{% endblock %}
--->
-
 {% block content %}
+    {% for fonte in lista_fonte %}
+        <p><b>Título:</b>{{ fonte.titulo }}</p>
+    {% endfor %}
     {% for livro in lista_livro %}
-<p> {{ lista_livro }} </p>
-        <p><b>Título:</b></p> {{ livro.titulo }}<br>
-        <p><b>Autoria:</b></p> {{ livro.autoria }}<br>
-        <p><b>Referência:</b></p> {{ livro.referencia }} <br>
-            <!--{% for a in livro.autor.all %}-->
+        <p><b>Título:</b>{{ livro.titulo }}</p>
+    {% endfor %}
 
-                    <!--{{ a.chamada }} <br>-->
-            <!--{% endfor %}-->
-<!--{{ livro.autor.chamada }}<br>-->
-
-
-
-    <!--{% endfor %}-->
 {% endblock %}
 

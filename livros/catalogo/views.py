@@ -1,22 +1,18 @@
 from django.shortcuts import render
-# from django.views import generic
-
+from django.views.generic import ListView
 from . import models
 
-
 def index(request):
-
-    num_livros = models.Livro.objects.all().count()
-    num_autores = models.Fonte.objects.all().count()
-
-    lista_livros = models.Livro.objects.all()
-
-
+    lista_fonte = models.Fonte.objects.all()
+    lista_livro = models.Livro.objects.all()
     contexto = {
-       # 'num_livros': num_livros,
-       # 'num_autores': num_autores,
-       "lista_livro": lista_livros
+       "lista_fonte": lista_fonte,
+       "lista_livro": lista_livro,
     }
-
-
     return render(request, "index.html", context=contexto)
+
+class ListaFontes(ListView):
+    model = models.Fonte
+    context_object_name = 'lista_de_fontes'
+    template_name = "lista_fontes.html"
+

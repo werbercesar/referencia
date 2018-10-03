@@ -1,0 +1,10 @@
+{% extends "template_basico.html" %}
+
+{% block content %}
+    <h2>Fontes</h2>
+        <ul>
+            {% for fonte in lista_de_fontes %}
+                <li>{{ fonte.titulo }}</li>
+            {% endfor %}
+        </ul>
+{% endblock %}
