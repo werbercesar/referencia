@@ -21,7 +21,6 @@ class Pessoa(models.Model):
 
 
 class Fonte(models.Model):
-    # TODO """remote"""
     autor = models.ManyToManyField(Pessoa, verbose_name="Autoria", through="PapelPessoa")
     titulo = models.CharField(max_length=200, verbose_name="Título")
     subtitulo = models.CharField(max_length=200, verbose_name="Subtítulo", null=True, blank=True)
