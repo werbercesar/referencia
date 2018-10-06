@@ -1,12 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Autor
+from .models import Papel
 
 
-class FormularioAutor(forms.ModelForm):
+class FormPapel(forms.ModelForm):
 
-    fields = ['nome', 'sobrenome']
+    fields = ['nome', 'abreviatura', 'autoridade_fonte']
 
     class Meta:
-        model = Autor
+        model = Papel

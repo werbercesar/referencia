@@ -8,8 +8,8 @@ class Caderno(models.Model):
 class Etiqueta(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Etiqueta",
         help_text="Uma etiqueta para classificação/marcação da anotação. (ex.: 'Segunda Guerra', 'Xadrez')")
-    cor = models.CharField(max_length=6, verbose_name="Cor", default='6A5ACD',
-        help_text="A cor da etiqueta por ajudá-lo na classificação de suas anotações (use com sabedoria...)")
+    cor = models.CharField(max_length=6, verbose_name="Cor", default="6A5ACD",
+        help_text="A cor da etiqueta pode ajudar na visualização das anotações (use com sabedoria...)")
 
 class Anotacao(models.Model):
     caderno = models.ForeignKey(Caderno, on_delete=models.PROTECT)

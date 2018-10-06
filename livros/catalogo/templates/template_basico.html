@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% block title %}
-    <title>Catálogo de referências</title>
+        <title>Catálogo de referências</title>
     {% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,19 +16,54 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" href="#">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <a class="navbar-brand" href="/catalogo/">Refs</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#MenuOculto" aria-controls="MenuOculto"
                     aria-expanded="false" aria-label="Menu">
                     <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="MenuOculto">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="fontes">Fontes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Pessoas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Papéis</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Notas</a></li>
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"
+                            id="dropdownAutoridades" role="button"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Autoridades</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownAutoridades">
+                            <a class="dropdown-item" href="#">Pessoas</a>
+                            <a class="dropdown-item" href="#">Instituições</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Papéis</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"
+                            id="dropdownFontes" role="button"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Fontes</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownFontes">
+                            <a class="dropdown-item" href="#">Livro</a>
+                            <a class="dropdown-item" href="#">Artigo</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Especificar uma fonte...</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"
+                           id="dropdownNotas" role="button"
+                           data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">Notas</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownNotas">
+                            <a class="dropdown-item" href="#">Cadernos</a>
+                            <a class="dropdown-item" href="#">Anotações</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Etiquetas</a>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </nav>
