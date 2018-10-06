@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def manage_anotacao(request, caderno_id):
+
+    caderno = get_object_or_404(models.Caderno)
