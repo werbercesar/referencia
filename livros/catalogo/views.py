@@ -12,6 +12,11 @@ def index(request):
     }
     return render(request, "index.html", context=contexto)
 
+def papeis(request):
+    lista_papeis = models.Papel.objects.all()
+    contexto = { "lista_papeis": lista_papeis, }
+    return render(request, "papel_list.html", context=contexto)
+
 
 class ListaFontes(ListView):
     model = models.Fonte
