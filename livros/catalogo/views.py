@@ -14,9 +14,14 @@ def index(request):
 
 def papeis(request):
     lista_papeis = models.Papel.objects.all()
-    contexto = { "lista_papeis": lista_papeis, }
-    return render(request, "papel_list.html", context=contexto)
-
+    campos = models.Papel._meta.get_fields()
+    verbose = []
+    for c in campos:
+        if c.editable: verbose.append(c.verbose_name)
+    # verbose = [c.verbose_name for c in campos]
+    contexto = { "lista_papeis": lista_papeis,
+                 "cabecalho": verbose,}
+    return render(request, "papel/papel_list.html", context=contexto)
 
 class ListaFontes(ListView):
     model = models.Fonte
