@@ -1,0 +1,28 @@
+{% extends "template_basico.html" %}
+
+{% block content %}
+    <h2>Papéis</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for c in cabecalho %}
+                  <th>{{ c }}</th>
+                {% endfor %}
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for papel in lista_papeis %}
+            <tr>
+                <td>{{ papel.id }}</td>
+                <td>{{ papel.nome }}</td>
+                <td>{{ papel.abreviatura }}</td>
+                <td>{{ papel.autoridade_fonte }}</td>
+                <td><a href="#"><span class="material-icons">edit</span></a></td>
+                <td><a href="#"><span class="material-icons">delete</span></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

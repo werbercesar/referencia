@@ -34,9 +34,9 @@ class Fonte(models.Model):
 
 
 class Papel(models.Model):
-    nome = models.CharField(max_length=25, verbose_name='Nome do papel')
+    nome = models.CharField(max_length=25, verbose_name='Nome')
     abreviatura = models.CharField(max_length=6, verbose_name='Abreviatura')
-    autoridade_fonte = models.BooleanField(verbose_name="Este papel é de autoridade da fonte?", default=False)
+    autoridade_fonte = models.BooleanField(verbose_name="Autoridade?", default=False)
 
 class PapelPessoa(models.Model):
     papel  = models.ForeignKey(Papel, on_delete=models.PROTECT)
