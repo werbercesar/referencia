@@ -29,6 +29,10 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('nota/', include('nota.urls')),
+]
+
+urlpatterns += [
     path('', RedirectView.as_view(url='/catalogo/', permanent=True)),
 ]
 
